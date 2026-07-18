@@ -4,18 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sahas Abhishek | Modern Portfolio</title>
-    <!-- නවීන අකුරු රටා (Google Fonts) -->
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- වෙබ් අඩවියේ නවීන වර්ණ සහ හැඩතල (CSS) --- */
         :root {
-            --bg-color: #0f172a; /* අඳුරු නිල් පසුබිම */
-            --card-bg: rgba(255, 255, 255, 0.05); /* වීදුරු පෙනුම (Glassmorphism) */
+            --card-bg: rgba(255, 255, 255, 0.07);
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --accent-color: #38bdf8; /* ලා නිල් පැහැති ලස්සන Accent එකක් */
-            --gradient: linear-gradient(135deg, #38bdf8, #3b82f6);
+            --accent-color: #38bdf8;
+            --gradient: linear-gradient(135deg, #38bdf8, #818cf8);
         }
 
         * {
@@ -26,10 +24,19 @@
             scroll-behavior: smooth;
         }
 
+        /* 🔴 අලංකාරව වර්ණ වෙනස් වන පසුබිම (Animated Gradient Background) 🔴 */
         body {
-            background-color: var(--bg-color);
+            background: linear-gradient(-45deg, #0f172a, #1e1b4b, #172554, #0f172a);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
             color: var(--text-main);
             overflow-x: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .container {
@@ -38,15 +45,14 @@
             margin: 0 auto;
         }
 
-        /* --- Navigation Bar --- */
         header {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(10px);
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(15px);
             z-index: 1000;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         nav {
@@ -77,7 +83,6 @@
             color: var(--text-main);
             text-decoration: none;
             font-weight: 400;
-            font-size: 16px;
             transition: color 0.3s ease;
         }
 
@@ -85,7 +90,6 @@
             color: var(--accent-color);
         }
 
-        /* --- Hero Section (ප්‍රධාන පිටුව) --- */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -101,9 +105,7 @@
             gap: 50px;
         }
 
-        .hero-text {
-            flex: 1;
-        }
+        .hero-text { flex: 1; }
 
         .hero-text h3 {
             color: var(--accent-color);
@@ -142,14 +144,15 @@
             font-weight: 600;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             display: inline-block;
+            border: none;
+            cursor: pointer;
         }
 
         .btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(56, 189, 248, 0.3);
+            box-shadow: 0 10px 20px rgba(129, 140, 248, 0.4);
         }
 
-        /* --- Profile Image Styling --- */
         .hero-image {
             flex: 1;
             display: flex;
@@ -162,15 +165,11 @@
             height: 350px;
             object-fit: cover;
             border-radius: 50%;
-            border: 4px solid var(--accent-color);
-            box-shadow: 0 0 30px rgba(56, 189, 248, 0.4);
-            z-index: 2;
+            border: 4px solid rgba(255,255,255,0.1);
+            box-shadow: 0 0 40px rgba(56, 189, 248, 0.2);
         }
 
-        /* --- Sections General Styling --- */
-        section {
-            padding: 100px 0;
-        }
+        section { padding: 100px 0; }
 
         .section-title {
             text-align: center;
@@ -179,11 +178,20 @@
             font-weight: 700;
         }
 
-        .section-title span {
-            color: var(--accent-color);
+        .section-title span { color: var(--accent-color); }
+
+        /* 🔴 Scroll Animations (පහළට යන විට මතු වන අලංකාරය) 🔴 */
+        .hidden-anim {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
 
-        /* --- Portfolio / Projects Section --- */
+        .show-anim {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         .portfolio-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -195,13 +203,15 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
             padding: 20px;
-            transition: transform 0.4s ease, border-color 0.4s ease;
+            transition: all 0.4s ease;
             backdrop-filter: blur(10px);
+            cursor: pointer; /* Click කිරීමට හැකි බව පෙන්වයි */
         }
 
         .portfolio-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-10px) scale(1.02);
             border-color: var(--accent-color);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
         }
 
         .portfolio-card img {
@@ -212,47 +222,84 @@
             margin-bottom: 20px;
         }
 
-        .portfolio-card h3 {
-            font-size: 22px;
-            margin-bottom: 10px;
+        .portfolio-card h3 { font-size: 22px; margin-bottom: 10px; }
+        .portfolio-card p { color: var(--text-muted); font-size: 15px; }
+
+        /* 🔴 Project එක Click කළ විට එන Pop-up කවුළුව 🔴 */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
         }
 
-        .portfolio-card p {
-            color: var(--text-muted);
-            font-size: 15px;
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
         }
 
-        /* --- Footer --- */
-        footer {
-            text-align: center;
-            padding: 30px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-muted);
-            font-size: 14px;
+        .modal-content {
+            background: #1e293b;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 90%;
+            max-width: 800px;
+            border-radius: 20px;
+            padding: 40px;
+            position: relative;
+            transform: translateY(50px);
+            transition: transform 0.4s ease;
+            display: flex;
+            gap: 30px;
         }
 
-        /* --- Mobile Responsive --- */
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px; right: 20px;
+            font-size: 30px;
+            color: #fff;
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.3s;
+        }
+        .close-btn:hover { color: var(--accent-color); }
+
+        .modal-img {
+            width: 50%;
+            border-radius: 15px;
+            object-fit: cover;
+        }
+
+        .modal-info { width: 50%; display: flex; flex-direction: column; justify-content: center;}
+        .modal-info h2 { font-size: 30px; margin-bottom: 15px; color: var(--accent-color); }
+        .modal-info p { color: #cbd5e1; line-height: 1.7; margin-bottom: 25px; }
+
+        /* Footer */
+        footer { text-align: center; padding: 30px 0; border-top: 1px solid rgba(255,255,255,0.1); color: var(--text-muted); }
+
+        /* Mobile Responsive */
         @media (max-width: 768px) {
-            .hero-content {
-                flex-direction: column-reverse;
-                text-align: center;
-            }
-            .hero-text h1 {
-                font-size: 40px;
-            }
-            .nav-links {
-                display: none; /* ජංගම දුරකථන සඳහා මෙනුව සැඟවීම */
-            }
-            .hero-image img {
-                width: 250px;
-                height: 250px;
-            }
+            .hero-content { flex-direction: column-reverse; text-align: center; }
+            .hero-text h1 { font-size: 40px; }
+            .nav-links { display: none; }
+            .hero-image img { width: 250px; height: 250px; }
+            .modal-content { flex-direction: column; padding: 25px; }
+            .modal-img, .modal-info { width: 100%; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Header & Navigation -->
     <header>
         <div class="container">
             <nav>
@@ -260,34 +307,30 @@
                 <ul class="nav-links">
                     <li><a href="#home">Home</a></li>
                     <li><a href="#about">About</a></li>
-                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#portfolio">Projects</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <!-- Hero / Home Section -->
     <section id="home" class="hero">
-        <div class="container hero-content">
+        <div class="container hero-content hidden-anim">
             <div class="hero-text">
                 <h3>HELLO, I'M</h3>
                 <h1>Sahas <span>Abhishek</span></h1>
                 <p>Engineering Student at University of Ruhuna & Creator of MindHerbs. I blend technology with creative arts to build amazing experiences.</p>
                 <a href="#portfolio" class="btn">Explore My Work</a>
             </div>
-            
             <div class="hero-image">
-                <!-- 🔴🔴 මෙතනට ඔබේ Profile පින්තූරය දමන්න 🔴🔴 -->
-                <!-- 'images/profile.jpg' යන්න වෙනස් කර ඔබගේ පින්තූරයේ නම ලබාදෙන්න -->
-                <img src="images/profile.jpg" alt="Sahas Abhishek Profile Picture">
+                <!-- 🔴 Profile පින්තූරය දමන ස්ථානය 🔴 -->
+                <img src="images/profile.jpg" alt="Sahas Profile" onerror="this.src='https://placehold.co/350x350/1e293b/38bdf8?text=Your+Photo'">
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
     <section id="about">
-        <div class="container">
+        <div class="container hidden-anim">
             <h2 class="section-title">About <span>Me</span></h2>
             <div style="text-align: center; color: var(--text-muted); max-width: 800px; margin: 0 auto; line-height: 1.8; font-size: 18px;">
                 <p>I am a passionate Engineering student based in Sri Lanka. Beyond academics, I have a deep love for music and digital content creation. Through my YouTube channel, <strong>MindHerbs</strong>, I share live music performances and creative shorts. My goal is to continuously learn, innovate, and create projects that make an impact.</p>
@@ -295,45 +338,40 @@
         </div>
     </section>
 
-    <!-- Portfolio Section -->
     <section id="portfolio">
         <div class="container">
-            <h2 class="section-title">My <span>Projects</span></h2>
+            <h2 class="section-title hidden-anim">My <span>Projects</span></h2>
             
             <div class="portfolio-grid">
                 
-                <!-- Project 1 (MindHerbs) -->
-                <div class="portfolio-card">
-                    <!-- 🔴🔴 මෙතනට Project 1 හි පින්තූරය දමන්න 🔴🔴 -->
-                    <img src="images/mindherbs.jpg" alt="MindHerbs YouTube Channel">
+                <!-- Project 1 (Clickable) -->
+                <!-- onclick="openModal(...)" මගින් අදාළ විස්තර Pop-up එකට යවයි -->
+                <div class="portfolio-card hidden-anim" onclick="openModal('MindHerbs Channel', 'images/mindherbs.jpg', 'MindHerbs is my YouTube channel where I curate and edit the best live music performance shorts. I focus on high-quality audio-visual experiences that captivate the audience. Over the past few months, the channel has grown significantly, bringing music lovers together.')">
+                    <img src="images/mindherbs.jpg" alt="MindHerbs" onerror="this.src='https://placehold.co/600x400/1e293b/fff?text=MindHerbs'">
                     <h3>MindHerbs Channel</h3>
-                    <a href="https://youtube.com/@mindherbs?si=16MuivYd4BNEQkHa" class="btn">Click Here To Channel</a>
-                    <p>Curating and editing the best live music performance shorts for a growing audience.</p>
+                    <p>Curating and editing the best live music performance shorts...</p>
                 </div>
 
                 <!-- Project 2 -->
-                <div class="portfolio-card">
-                    <!-- 🔴🔴 මෙතනට Project 2 හි පින්තූරය දමන්න 🔴🔴 -->
-                    <img src="images/project1.jpg" alt="Engineering Project">
+                <div class="portfolio-card hidden-anim" onclick="openModal('Engineering Design', 'images/project1.jpg', 'This was a major university project focused on problem-solving and structural design. We utilized modern engineering principles to develop an innovative solution for real-world mechanical problems, utilizing CAD software and physical prototyping.')">
+                    <img src="images/project1.jpg" alt="Engineering" onerror="this.src='https://placehold.co/600x400/1e293b/fff?text=Engineering'">
                     <h3>Engineering Design</h3>
-                    <p>A university project focused on problem-solving, structural design, and innovation.</p>
+                    <p>A university project focused on problem-solving...</p>
                 </div>
 
-                <!-- අලුත් Project එකක් දැමීමට අවශ්‍ය නම් මේ Card එක Copy කර පහළින් Paste කරන්න -->
-                <div class="portfolio-card">
-                    <!-- 🔴🔴 මෙතනට අලුත් Project හි පින්තූරය දමන්න 🔴🔴 -->
-                    <img src="images/project2.jpg" alt="Creative Content">
+                <!-- Project 3 -->
+                <div class="portfolio-card hidden-anim" onclick="openModal('Creative Content', 'images/project2.jpg', 'I blend audio-visual elements to create engaging social media content. This includes video editing, color grading, and sound mixing to ensure each piece of content stands out and delivers a clear message to the viewers.')">
+                    <img src="images/project2.jpg" alt="Content" onerror="this.src='https://placehold.co/600x400/1e293b/fff?text=Content'">
                     <h3>Creative Content</h3>
-                    <p>Blending audio-visual elements to create engaging social media content.</p>
+                    <p>Blending audio-visual elements to create engaging content...</p>
                 </div>
 
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
     <section id="contact">
-        <div class="container" style="text-align: center;">
+        <div class="container hidden-anim" style="text-align: center;">
             <h2 class="section-title">Get In <span>Touch</span></h2>
             <p style="color: var(--text-muted); margin-bottom: 30px;">Let's work together or just say hi!</p>
             <a href="mailto:lhsadesilva@gmail.com" class="btn">Send an Email</a>
@@ -342,12 +380,73 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <div class="container">
             <p>&copy; 2026 Sahas Abhishek. Crafted with passion.</p>
         </div>
     </footer>
 
+    <!-- 🔴 Project Details පෙන්වන Pop-up කවුළුව (Modal) 🔴 -->
+    <div class="modal-overlay" id="projectModal" onclick="closeModal(event)">
+        <div class="modal-content" id="modalBox">
+            <span class="close-btn" onclick="closeModalForce()">&times;</span>
+            <img src="" alt="Project Image" class="modal-img" id="modalImg">
+            <div class="modal-info">
+                <h2 id="modalTitle">Project Title</h2>
+                <p id="modalDesc">Project description goes here...</p>
+                <a href="#" class="btn" style="text-align: center;">View Full Project</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. Scroll Animation Logic ---
+        // වෙබ් අඩවිය පහළට යන විට දේවල් මතු වී පෙනීමට සලස්වන කේතය
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('show-anim');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        const hiddenElements = document.querySelectorAll('.hidden-anim');
+        hiddenElements.forEach((el) => observer.observe(el));
+
+        // --- 2. Project Details Modal Logic ---
+        // Project එක Click කළ විට Pop-up එක විවෘත කරන කේතය
+        const modal = document.getElementById('projectModal');
+        const modalImg = document.getElementById('modalImg');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDesc = document.getElementById('modalDesc');
+
+        // Modal එක විවෘත කිරීම
+        function openModal(title, imageSrc, description) {
+            modalTitle.innerText = title;
+            modalDesc.innerText = description;
+            
+            // පින්තූරය නොමැති නම් placeholder එකක් යෙදීම
+            const img = new Image();
+            img.src = imageSrc;
+            img.onload = () => modalImg.src = imageSrc;
+            img.onerror = () => modalImg.src = 'https://placehold.co/600x400/1e293b/38bdf8?text=Project+Image';
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // පසුබිම scroll වීම නැවැත්වීම
+        }
+
+        // Modal එකෙන් පිටත Click කළ විට එය වැසීම
+        function closeModal(event) {
+            if(event.target === modal) {
+                closeModalForce();
+            }
+        }
+
+        // 'X' ලකුණ Click කළ විට වැසීම
+        function closeModalForce() {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto'; // පසුබිම scroll වීම නැවත සක්‍රිය කිරීම
+        }
+    </script>
 </body>
 </html>
