@@ -24,19 +24,22 @@
             scroll-behavior: smooth;
         }
 
-        /* 🔴 අලංකාරව වර්ණ වෙනස් වන පසුබිම (Animated Gradient Background) 🔴 */
+        /* 🔴 අලුත් Cinematic Wave පසුබිම සඳහා 🔴 */
         body {
-            background: linear-gradient(-45deg, #0f172a, #1e1b4b, #172554, #0f172a);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            background-color: #050810;
             color: var(--text-main);
             overflow-x: hidden;
+            position: relative;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        #waveCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
         }
 
         .container {
@@ -180,16 +183,28 @@
 
         .section-title span { color: var(--accent-color); }
 
-        /* 🔴 Scroll Animations (පහළට යන විට මතු වන අලංකාරය) 🔴 */
-        .hidden-anim {
+        /* 🔴 අලුත් Scroll Animations (විවිධ දිශාවලින් පැමිණෙන) 🔴 */
+        .reveal-up {
             opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            transform: translateY(60px);
+            transition: all 1s cubic-bezier(0.5, 0, 0, 1);
         }
-
-        .show-anim {
+        
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: all 1s cubic-bezier(0.5, 0, 0, 1);
+        }
+        
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(60px);
+            transition: all 1s cubic-bezier(0.5, 0, 0, 1);
+        }
+        
+        .reveal-active {
             opacity: 1;
-            transform: translateY(0);
+            transform: translate(0, 0);
         }
 
         .portfolio-grid {
@@ -300,6 +315,9 @@
 </head>
 <body>
 
+    <!-- Cinematic Wave Canvas -->
+    <canvas id="waveCanvas"></canvas>
+
     <header>
         <div class="container">
             <nav>
@@ -315,14 +333,15 @@
     </header>
 
     <section id="home" class="hero">
-        <div class="container hero-content hidden-anim">
-            <div class="hero-text">
+        <!-- Parallax effect එකතු කර ඇත -->
+        <div class="container hero-content" id="parallax-hero">
+            <div class="hero-text reveal-left">
                 <h3>HELLO, I'M</h3>
                 <h1>Sahas <span>Abhishek</span></h1>
                 <p>Engineering Student at University of Ruhuna & Creator of MindHerbs. I blend technology with creative arts to build amazing experiences.</p>
                 <a href="#portfolio" class="btn">Explore My Work</a>
             </div>
-            <div class="hero-image">
+            <div class="hero-image reveal-right">
                 <!-- 🔴 Profile පින්තූරය දමන ස්ථානය 🔴 -->
                 <img src="images/profile.jpg" alt="Sahas Profile" onerror="this.src='https://placehold.co/350x350/1e293b/38bdf8?text=Your+Photo'">
             </div>
@@ -330,7 +349,7 @@
     </section>
 
     <section id="about">
-        <div class="container hidden-anim">
+        <div class="container reveal-up">
             <h2 class="section-title">About <span>Me</span></h2>
             <div style="text-align: center; color: var(--text-muted); max-width: 800px; margin: 0 auto; line-height: 1.8; font-size: 18px;">
                 <p>I am a passionate Engineering student based in Sri Lanka. Beyond academics, I have a deep love for music and digital content creation. Through my YouTube channel, <strong>MindHerbs</strong>, I share live music performances and creative shorts. My goal is to continuously learn, innovate, and create projects that make an impact.</p>
@@ -340,27 +359,27 @@
 
     <section id="portfolio">
         <div class="container">
-            <h2 class="section-title hidden-anim">My <span>Projects</span></h2>
+            <h2 class="section-title reveal-up">My <span>Projects</span></h2>
             
             <div class="portfolio-grid">
                 
                 <!-- Project 1 (Clickable) -->
                 <!-- onclick="openModal(...)" මගින් අදාළ විස්තර Pop-up එකට යවයි -->
-                <div class="portfolio-card hidden-anim" onclick="openModal('MindHerbs Channel', 'images/mindherbs.jpg', 'MindHerbs is my YouTube channel where I curate and edit the best live music performance shorts. I focus on high-quality audio-visual experiences that captivate the audience. Over the past few months, the channel has grown significantly, bringing music lovers together.')">
+                <div class="portfolio-card reveal-up" onclick="openModal('MindHerbs Channel', 'images/mindherbs.jpg', 'MindHerbs is my YouTube channel where I curate and edit the best live music performance shorts. I focus on high-quality audio-visual experiences that captivate the audience. Over the past few months, the channel has grown significantly, bringing music lovers together.')">
                     <img src="images/mindherbs.jpg" alt="MindHerbs" onerror="this.src='https://placehold.co/600x400/1e293b/fff?text=MindHerbs'">
                     <h3>MindHerbs Channel</h3>
                     <p>Curating and editing the best live music performance shorts...</p>
                 </div>
 
                 <!-- Project 2 -->
-                <div class="portfolio-card hidden-anim" onclick="openModal('Engineering Design', 'images/project1.jpg', 'This was a major university project focused on problem-solving and structural design. We utilized modern engineering principles to develop an innovative solution for real-world mechanical problems, utilizing CAD software and physical prototyping.')">
+                <div class="portfolio-card reveal-up" style="transition-delay: 0.1s;" onclick="openModal('Engineering Design', 'images/project1.jpg', 'This was a major university project focused on problem-solving and structural design. We utilized modern engineering principles to develop an innovative solution for real-world mechanical problems, utilizing CAD software and physical prototyping.')">
                     <img src="images/project1.jpg" alt="Engineering" onerror="this.src='https://placehold.co/600x400/1e293b/fff?text=Engineering'">
                     <h3>Engineering Design</h3>
                     <p>A university project focused on problem-solving...</p>
                 </div>
 
                 <!-- Project 3 -->
-                <div class="portfolio-card hidden-anim" onclick="openModal('Creative Content', 'images/project2.jpg', 'I blend audio-visual elements to create engaging social media content. This includes video editing, color grading, and sound mixing to ensure each piece of content stands out and delivers a clear message to the viewers.')">
+                <div class="portfolio-card reveal-up" style="transition-delay: 0.2s;" onclick="openModal('Creative Content', 'images/project2.jpg', 'I blend audio-visual elements to create engaging social media content. This includes video editing, color grading, and sound mixing to ensure each piece of content stands out and delivers a clear message to the viewers.')">
                     <img src="images/project2.jpg" alt="Content" onerror="this.src='https://placehold.co/600x400/1e293b/fff?text=Content'">
                     <h3>Creative Content</h3>
                     <p>Blending audio-visual elements to create engaging content...</p>
@@ -371,7 +390,7 @@
     </section>
 
     <section id="contact">
-        <div class="container hidden-anim" style="text-align: center;">
+        <div class="container reveal-up" style="text-align: center;">
             <h2 class="section-title">Get In <span>Touch</span></h2>
             <p style="color: var(--text-muted); margin-bottom: 30px;">Let's work together or just say hi!</p>
             <a href="mailto:lhsadesilva@gmail.com" class="btn">Send an Email</a>
@@ -400,20 +419,77 @@
     </div>
 
     <script>
-        // --- 1. Scroll Animation Logic ---
-        // වෙබ් අඩවිය පහළට යන විට දේවල් මතු වී පෙනීමට සලස්වන කේතය
+        // --- 1. Cinematic Wave Canvas Animation ---
+        const canvas = document.getElementById('waveCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        let time = 0;
+        function drawWaves() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Gradient Background for Canvas
+            let bgGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            bgGradient.addColorStop(0, '#050810');
+            bgGradient.addColorStop(1, '#0f172a');
+            ctx.fillStyle = bgGradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Three cinematic waves overlapping
+            const waves = [
+                { color: 'rgba(56, 189, 248, 0.15)', amp: 80, freq: 0.002, speed: 0.015, offset: 0.6 },
+                { color: 'rgba(129, 140, 248, 0.1)', amp: 100, freq: 0.0015, speed: 0.02, offset: 0.65 },
+                { color: 'rgba(56, 189, 248, 0.05)', amp: 120, freq: 0.001, speed: 0.01, offset: 0.7 }
+            ];
+
+            waves.forEach(wave => {
+                ctx.beginPath();
+                ctx.moveTo(0, canvas.height);
+                for (let x = 0; x <= canvas.width; x += 10) {
+                    let y = Math.sin(x * wave.freq + time * wave.speed) * wave.amp + (canvas.height * wave.offset);
+                    ctx.lineTo(x, y);
+                }
+                ctx.lineTo(canvas.width, canvas.height);
+                ctx.fillStyle = wave.color;
+                ctx.fill();
+            });
+
+            time += 1;
+            requestAnimationFrame(drawWaves);
+        }
+        drawWaves();
+
+        // --- 2. Parallax Scrolling Effect ---
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
+            const heroParallax = document.getElementById('parallax-hero');
+            if(heroParallax) {
+                // Move the hero content down slightly as you scroll down
+                heroParallax.style.transform = `translateY(${scrolled * 0.3}px)`;
+                heroParallax.style.opacity = 1 - (scrolled * 0.003);
+            }
+        });
+
+        // --- 3. Advanced Scroll Reveal Animations ---
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if(entry.isIntersecting) {
-                    entry.target.classList.add('show-anim');
+                    entry.target.classList.add('reveal-active');
                 }
             });
-        }, { threshold: 0.1 });
+        }, { threshold: 0.15 });
 
-        const hiddenElements = document.querySelectorAll('.hidden-anim');
+        // Observe all reveal elements
+        const hiddenElements = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right');
         hiddenElements.forEach((el) => observer.observe(el));
 
-        // --- 2. Project Details Modal Logic ---
+        // --- 4. Project Details Modal Logic ---
         // Project එක Click කළ විට Pop-up එක විවෘත කරන කේතය
         const modal = document.getElementById('projectModal');
         const modalImg = document.getElementById('modalImg');
