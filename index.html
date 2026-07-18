@@ -3,79 +3,348 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sahas Abhishek | Portfolio</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Sahas Abhishek | Modern Portfolio</title>
+    <!-- නවීන අකුරු රටා (Google Fonts) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- වෙබ් අඩවියේ නවීන වර්ණ සහ හැඩතල (CSS) --- */
+        :root {
+            --bg-color: #0f172a; /* අඳුරු නිල් පසුබිම */
+            --card-bg: rgba(255, 255, 255, 0.05); /* වීදුරු පෙනුම (Glassmorphism) */
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-color: #38bdf8; /* ලා නිල් පැහැති ලස්සන Accent එකක් */
+            --gradient: linear-gradient(135deg, #38bdf8, #3b82f6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* --- Navigation Bar --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--accent-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* --- Hero Section (ප්‍රධාන පිටුව) --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+        }
+
+        .hero-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            gap: 50px;
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero-text h3 {
+            color: var(--accent-color);
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .hero-text h1 {
+            font-size: 55px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero-text h1 span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-text p {
+            color: var(--text-muted);
+            font-size: 18px;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .btn {
+            padding: 14px 30px;
+            background: var(--gradient);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(56, 189, 248, 0.3);
+        }
+
+        /* --- Profile Image Styling --- */
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        .hero-image img {
+            width: 350px;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid var(--accent-color);
+            box-shadow: 0 0 30px rgba(56, 189, 248, 0.4);
+            z-index: 2;
+        }
+
+        /* --- Sections General Styling --- */
+        section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 40px;
+            margin-bottom: 60px;
+            font-weight: 700;
+        }
+
+        .section-title span {
+            color: var(--accent-color);
+        }
+
+        /* --- Portfolio / Projects Section --- */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .portfolio-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            transition: transform 0.4s ease, border-color 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-color);
+        }
+
+        .portfolio-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .portfolio-card h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .portfolio-card p {
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* --- Mobile Responsive --- */
+        @media (max-width: 768px) {
+            .hero-content {
+                flex-direction: column-reverse;
+                text-align: center;
+            }
+            .hero-text h1 {
+                font-size: 40px;
+            }
+            .nav-links {
+                display: none; /* ජංගම දුරකථන සඳහා මෙනුව සැඟවීම */
+            }
+            .hero-image img {
+                width: 250px;
+                height: 250px;
+            }
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Header Section -->
+    <!-- Header & Navigation -->
     <header>
         <div class="container">
             <nav>
-                <h2 class="logo">Sahas<span>.</span></h2>
-                <ul>
+                <a href="#" class="logo">Sahas<span>.</span></a>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
                     <li><a href="#about">About</a></li>
-                    <li><a href="#portfolio">My Work</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
-            <div class="hero">
-                <div class="hero-text">
-                    <h1>Hi, I'm <span>Sahas Abhishek</span></h1>
-                    <p>Engineering Student at University of Ruhuna & Creator of MindHerbs</p>
-                    <a href="#portfolio" class="btn">View My Work</a>
-                </div>
-                <!-- Profile Image -->
-                <div class="hero-img">
-                    <img src="images/profile.jpg" alt="Sahas Abhishek">
-                </div>
-            </div>
         </div>
     </header>
 
-    <!-- About Section -->
-    <section id="about" class="container">
-        <h2>About Me</h2>
-        <p>I am an engineering student at the University of Ruhuna, Sri Lanka. I have a passion for technology, creation, and music. I also run a YouTube channel called <strong>MindHerbs</strong>, where I share amazing music live performance shorts. I love blending technical skills with creative projects.</p>
+    <!-- Hero / Home Section -->
+    <section id="home" class="hero">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h3>HELLO, I'M</h3>
+                <h1>Sahas <span>Abhishek</span></h1>
+                <p>Engineering Student at University of Ruhuna & Creator of MindHerbs. I blend technology with creative arts to build amazing experiences.</p>
+                <a href="#portfolio" class="btn">Explore My Work</a>
+            </div>
+            
+            <div class="hero-image">
+                <!-- 🔴🔴 මෙතනට ඔබේ Profile පින්තූරය දමන්න 🔴🔴 -->
+                <!-- 'images/profile.jpg' යන්න වෙනස් කර ඔබගේ පින්තූරයේ නම ලබාදෙන්න -->
+                <img src="images/profile.jpg" alt="Sahas Abhishek Profile Picture">
+            </div>
+        </div>
     </section>
 
-    <!-- Portfolio / Work Section -->
-    <section id="portfolio" class="container">
-        <h2>My Work & Projects</h2>
-        <div class="gallery">
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">About <span>Me</span></h2>
+            <div style="text-align: center; color: var(--text-muted); max-width: 800px; margin: 0 auto; line-height: 1.8; font-size: 18px;">
+                <p>I am a passionate Engineering student based in Sri Lanka. Beyond academics, I have a deep love for music and digital content creation. Through my YouTube channel, <strong>MindHerbs</strong>, I share live music performances and creative shorts. My goal is to continuously learn, innovate, and create projects that make an impact.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio">
+        <div class="container">
+            <h2 class="section-title">My <span>Projects</span></h2>
             
-            <!-- Project 1 (MindHerbs) -->
-            <div class="gallery-item">
-                <img src="images/mindherbs.jpg" alt="MindHerbs YouTube Channel">
-                <h3>MindHerbs Channel</h3>
-                <p>Music live performance shorts.</p>
+            <div class="portfolio-grid">
+                
+                <!-- Project 1 (MindHerbs) -->
+                <div class="portfolio-card">
+                    <!-- 🔴🔴 මෙතනට Project 1 හි පින්තූරය දමන්න 🔴🔴 -->
+                    <img src="images/mindherbs.jpg" alt="MindHerbs YouTube Channel">
+                    <h3>MindHerbs Channel</h3>
+                    <p>Curating and editing the best live music performance shorts for a growing audience.</p>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="portfolio-card">
+                    <!-- 🔴🔴 මෙතනට Project 2 හි පින්තූරය දමන්න 🔴🔴 -->
+                    <img src="images/project1.jpg" alt="Engineering Project">
+                    <h3>Engineering Design</h3>
+                    <p>A university project focused on problem-solving, structural design, and innovation.</p>
+                </div>
+
+                <!-- අලුත් Project එකක් දැමීමට අවශ්‍ය නම් මේ Card එක Copy කර පහළින් Paste කරන්න -->
+                <div class="portfolio-card">
+                    <!-- 🔴🔴 මෙතනට අලුත් Project හි පින්තූරය දමන්න 🔴🔴 -->
+                    <img src="images/project2.jpg" alt="Creative Content">
+                    <h3>Creative Content</h3>
+                    <p>Blending audio-visual elements to create engaging social media content.</p>
+                </div>
+
             </div>
-
-            <!-- Project 2 (Engineering) -->
-            <div class="gallery-item">
-                <img src="images/project1.jpg" alt="Engineering Project">
-                <h3>Engineering Project</h3>
-                <p>Details about your university project.</p>
-            </div>
-
-            <!-- අලුතින් පින්තූරයක් එකතු කිරීමට අවශ්‍ය වූ විට, ඉහත <div class="gallery-item">...</div> කොටස Copy කර මෙහි පහළින් Paste කර පින්තූරයේ නම වෙනස් කරන්න. -->
-
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="container">
-        <h2>Get In Touch</h2>
-        <p>Reach out to me for collaborations or inquiries.</p>
-        <a href="mailto:your-email@gmail.com" class="btn">Email Me</a>
+    <section id="contact">
+        <div class="container" style="text-align: center;">
+            <h2 class="section-title">Get In <span>Touch</span></h2>
+            <p style="color: var(--text-muted); margin-bottom: 30px;">Let's work together or just say hi!</p>
+            <a href="mailto:your-email@gmail.com" class="btn">Send an Email</a>
+        </div>
     </section>
 
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2026 Sahas Abhishek. All rights reserved.</p>
+        <div class="container">
+            <p>&copy; 2026 Sahas Abhishek. Crafted with passion.</p>
+        </div>
     </footer>
 
-    <script src="script.js"></script>
-    
-</div>
 </body>
 </html>
