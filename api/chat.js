@@ -5,14 +5,14 @@ export default async function handler(req, res) {
     const apiKey = process.env.KEY;
 
     try {
-        // මෙන්න මෙය උත්සාහ කරන්න: v1beta වෙනුවට v1 පමණක් භාවිතා කරන්න
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                "contents": [{
-                    "parts": [{ "text": message }]
-                }]
+        // ඔබේ api/chat.js හි මෙම පේළිය පමණක් වෙනස් කරන්න
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            "contents": [{
+              "parts": [{ "text": message }]
+              }]
             })
         });
 
