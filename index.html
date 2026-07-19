@@ -928,8 +928,8 @@
             const aiTypingId = appendMessage("Typing...", 'ai-message');
 
             try {
-                
-                const response = await fetch('/api/chat', { 
+
+                const response = await fetch('https://sahas-portfolio-roan.vercel.app/api/chat', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ message: userText }) 
