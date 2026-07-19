@@ -280,12 +280,15 @@
             padding: 20px;
             transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
             backdrop-filter: blur(10px);
-            min-width: 320px;
+            width: 350px; /* 🔴 කොටුවේ පළල ස්ථිර කිරීම */
+            height: 400px; /* 🔴 කොටුවේ උස ස්ථිර කිරීම */
             white-space: normal;
-            margin-right: 30px; /* 🔴 අලුතින් එක් කළා: gap වෙනුවට පරතරය තබා ගැනීමට */
+            margin-right: 30px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
         }
 
-        /* Hover Effect ආදිය කලින් තිබූ පරිදිම තබන්න */
         .certificate-card:hover {
             transform: translateY(-10px) scale(1.02);
             border-color: var(--accent-color);
@@ -295,14 +298,32 @@
         .certificate-card img {
             width: 100%;
             height: 220px;
-            object-fit: cover;
+            object-fit: contain; /* 🔴 Cover වෙනුවට Contain යෙදීමෙන් පින්තූරය නොකැපී පෙන්වයි */
             border-radius: 12px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             pointer-events: none;
+            background-color: rgba(0, 0, 0, 0.2); /* පින්තූරය පිටුපසට අඳුරු වර්ණයක් */
         }
 
-        .certificate-card h3 { font-size: 22px; margin-bottom: 10px; }
-        .certificate-card p { color: var(--text-muted); font-size: 15px; }
+        /* 🔴 මාතෘකාව පේළි 2කට වඩා දිග නම් ඉතිරිය නොපෙන්වා සිටීමට */
+        .certificate-card h3 { 
+            font-size: 20px; 
+            margin-bottom: 5px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* 🔴 විස්තරය පේළි 2කට සීමා කිරීමට */
+        .certificate-card p { 
+            color: var(--text-muted); 
+            font-size: 14px; 
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
 
 
         /* 🔴 when Project Click,Pop-up window 🔴 */
@@ -538,6 +559,19 @@
         </div>
     </div>
 
+    <!-- මෙය Certificates සඳහා පමණක් භාවිතා වන අලුත් Modal එක -->
+    <div class="modal-overlay" id="certModal" onclick="closeCertModal(event)">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeCertModalForce()">&times;</span>
+            <img src="" alt="Certificate Image" class="modal-img" id="certModalImg">
+            <div class="modal-info">
+                <h2 id="certModalTitle">Certificate Title</h2>
+                <p id="certModalDesc">Description goes here...</p>
+                <a href="#" id="certModalLink" target="_blank" class="btn">View Document</a>
+            </div>
+        </div>
+    </div>
+
     <script>
         // --- 1. Cinematic Wave Canvas Animation ---
         const canvas = document.getElementById('waveCanvas');
@@ -642,6 +676,38 @@
         function closeModalForce() {
             modal.classList.remove('active');
             document.body.style.overflow = 'auto'; // පසුබිම scroll වීම නැවත සක්‍රිය කිරීම
+        }
+
+        // 🔴 Certificates සඳහා පමණක් ක්‍රියාත්මක වන Function එක
+        function openCertModal(title, imageSrc, description) {
+            const modal = document.getElementById('certModal');
+            const modalImg = document.getElementById('certModalImg');
+            const modalTitle = document.getElementById('certModalTitle');
+            const modalDesc = document.getElementById('certModalDesc');
+            const modalLink = document.getElementById('certModalLink');
+
+            modalTitle.innerText = title;
+            modalDesc.innerText = description;
+            modalImg.src = imageSrc;
+            
+            // View Document බොත්තම පින්තූරයම Full Screen පෙන්වයි
+            modalLink.href = imageSrc;
+            modalLink.target = "_blank";
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // 🔴 Certificates Modal එක වැසීමට Function එක
+        function closeCertModal(event) {
+            if(event.target === document.getElementById('certModal')) {
+                closeCertModalForce();
+            }
+        }
+
+        function closeCertModalForce() {
+            document.getElementById('certModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
         }
 
                 // --- 1. Prevent Right Click, Copy, and Cut (Copy Block) ---
