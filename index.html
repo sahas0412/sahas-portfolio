@@ -253,6 +253,8 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
             cursor: grab;
+            scroll-behavior: auto;
+            -webkit-overflow-scrolling: touch; /* Mobile Phones වල Smooth Swipe වීම සඳහා */
         }
 
         .certificate-slider-container::-webkit-scrollbar {
@@ -629,13 +631,15 @@
             document.body.style.overflow = 'auto'; // පසුබිම scroll වීම නැවත සක්‍රිය කිරීම
         }
 
-        // --- Certificate Slider Logic ---
+        // --- Certificate Slider Logic (Updated for Trackpad & Mobile) ---
         const slider = document.getElementById('certSlider');
         let isDown = false;
         let startX;
         let scrollLeft;
         let autoScrollTimer;
+        let wheelTimeout;
 
+        // ඉබේ Scroll වීම ආරම්භ කරන Function එක
         function startAutoScroll() {
             clearInterval(autoScrollTimer); 
             autoScrollTimer = setInterval(() => {
@@ -648,13 +652,15 @@
             }, 20); 
         }
 
+        // ඉබේ Scroll වීම නතර කරන Function එක
         function stopAutoScroll() {
             clearInterval(autoScrollTimer);
         }
 
+        // පිටුව load වුනු ගමන් Auto-scroll පටන් ගන්න
         startAutoScroll();
 
-        // Mouse Events
+        // 1. Mouse Events (Computer Mouse Drag)
         slider.addEventListener('mousedown', (e) => {
             isDown = true;
             slider.style.cursor = 'grabbing';
@@ -683,25 +689,30 @@
             slider.scrollLeft = scrollLeft - walk;
         });
 
-        // Touch Events (Mobile Phone)
-        slider.addEventListener('touchstart', (e) => {
-            isDown = true;
-            startX = e.touches[0].pageX - slider.offsetLeft;
-            scrollLeft = slider.scrollLeft;
-            stopAutoScroll(); 
-        });
+        // 2. Touch Events (Mobile Phone - Native Smooth Swipe)
+        // මෙහිදී දුරකථනයේ ස්වභාවික swipe වීමට බාධා නොකර Auto-scroll පමණක් නතර කරයි
+        slider.addEventListener('touchstart', () => {
+            stopAutoScroll();
+            isDown = true; 
+        }, {passive: true});
 
         slider.addEventListener('touchend', () => {
             isDown = false;
             startAutoScroll(); 
         });
 
-        slider.addEventListener('touchmove', (e) => {
-            if (!isDown) return;
-            const x = e.touches[0].pageX - slider.offsetLeft;
-            const walk = (x - startX) * 2;
-            slider.scrollLeft = scrollLeft - walk;
-        });
+        // 3. Trackpad / Scroll Wheel Events (Laptop Two-Finger Scroll)
+        slider.addEventListener('wheel', () => {
+            stopAutoScroll(); // Trackpad එකෙන් Scroll කරද්දී ඉබේ යන එක නතර වීම
+            
+            // Scroll කිරීම නතර කර තත්පර 1කට පසු නැවත ඉබේ යාම ආරම්භ කිරීම
+            clearTimeout(wheelTimeout);
+            wheelTimeout = setTimeout(() => {
+                if (!isDown) {
+                    startAutoScroll();
+                }
+            }, 1000);
+        }, {passive: true});
 
     </script>
 </body>
