@@ -2,7 +2,7 @@ export default async function handler(req, res) {
     if (req.method !== 'POST') return res.status(405).end();
     
     const { message } = req.body;
-    const apiKey = process.env.GEMINI_API_KEY;
+    const apiKey = process.env.KEY;
 
     try {
         // මෙන්න මෙය උත්සාහ කරන්න: v1beta වෙනුවට v1 පමණක් භාවිතා කරන්න
