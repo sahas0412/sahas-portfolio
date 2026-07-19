@@ -928,11 +928,11 @@
             const aiTypingId = appendMessage("Typing...", 'ai-message');
 
             try {
-                // මෙය වෙනස් කරන්න
-                const response = await fetch('https://sahas-portfolio-roan.vercel.app/api/chat', {
+                
+                const response = await fetch('/api/chat', { 
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message: userText })
+                    body: JSON.stringify({ message: userText }) 
                 });
 
                 const data = await response.json();
