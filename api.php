@@ -12,7 +12,7 @@ if (empty($userMessage)) {
 }
 
 // ඔබේ API Key එක මෙතනට ඇතුලත් කරන්න (මෙය දැන් පිටතට නොපෙනේ)
-$apiKey = 'Key';
+$apiKey = 'GEMINI_API_KEY';
 
 // AI එක Train කරන උපදෙස් (System Prompt) දැන් ආරක්ෂිතව සර්වර් එකේ ඇත
 $systemPrompt = "You are a helpful and polite AI assistant for Sahas Abhishek's personal portfolio website. You must always answer in English. 
