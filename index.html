@@ -245,30 +245,25 @@
         .portfolio-card h3 { font-size: 22px; margin-bottom: 10px; }
         .portfolio-card p { color: var(--text-muted); font-size: 15px; }
 
-        /* --- New Certificate Train Slider CSS --- */
+        /* --- Auto-scroll + Draggable Slider CSS --- */
         .certificate-slider-container {
-            overflow: hidden;
             width: 100%;
-            white-space: nowrap;
+            overflow-x: auto;
             padding: 20px 0;
-        } 
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            cursor: grab;
+        }
+
+        .certificate-slider-container::-webkit-scrollbar {
+            display: none;
+        }
 
         .certificate-grid {
             display: flex;
             gap: 30px;
             width: max-content;
-            /* තත්පර 20න් animation එක සම්පූර්ණ වේ (වේගය වෙනස් කිරීමට 20s වෙනස් කරන්න) */
-            animation: scrollTrain 20s linear infinite; 
-        }
-
-        /* Mouse එක ගෙනා විට නතර වීමට (අවශ්‍ය නම් පමණක්) */
-        .certificate-grid:hover {
-            animation-play-state: paused;
-        }
-
-        @keyframes scrollTrain {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); } 
+            padding-right: 30px;
         }
 
         .certificate-card {
@@ -276,11 +271,10 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
             padding: 20px;
-            transition: all 0.4s ease;
+            transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
             backdrop-filter: blur(10px);
-            cursor: pointer;
-            min-width: 320px; /* කාඩ් එකක පළල */
-            white-space: normal; /* අකුරු කාඩ් එකෙන් පිටතට යාම වැලැක්වීමට */
+            min-width: 320px;
+            white-space: normal;
         }
 
         .certificate-card:hover {
@@ -295,28 +289,12 @@
             object-fit: cover;
             border-radius: 12px;
             margin-bottom: 20px;
+            pointer-events: none;
         }
 
         .certificate-card h3 { font-size: 22px; margin-bottom: 10px; }
         .certificate-card p { color: var(--text-muted); font-size: 15px; }
 
-
-        .certificate-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: var(--accent-color);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-        }
-
-        .certificate-card img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            border-radius: 12px;
-            margin-bottom: 20px;
-        }
-
-        .certificate-card h3 { font-size: 22px; margin-bottom: 10px; }
-        .certificate-card p { color: var(--text-muted); font-size: 15px; }
 
         /* 🔴 when Project Click,Pop-up window 🔴 */
         .modal-overlay {
@@ -472,44 +450,41 @@
         <div class="container">
             <h2 class="section-title reveal-up">My <span>Certificates and Letters</span></h2>
 
-            <!-- අලුතින් එක් කළ slider container එක -->
-            <div class="certificate-slider-container">
+            <div class="certificate-slider-container" id="certSlider">
                 <div class="certificate-grid">
 
-                <!-- 1. පළමු කාඩ්පත් සෙට් එක -->
-                    <div class="certificate-card" onclick="openModal('Certificate 1', 'images/Certificate1.jpg', 'Description about Certificate 1')">
-                        <img src="images/Certificate1.jpg" alt="Certificate 1" onerror="this.src='https://placehold.co/600x400/1e293b/fff?text=Certificate1'">
+                    <div class="certificate-card" onclick="openModal('Certificate 1', 'images/Certificate1.jpg', 'Description 1')">
+                        <img src="images/Certificate1.jpg" alt="Cert 1" onerror="this.src='https://placehold.co/600x400/1e293b/fff?text=Certificate1'">
                         <h3>Certificate 1</h3>
                         <p>Description goes here...</p>
                     </div>
 
-                    <div class="certificate-card" onclick="openModal('Certificate 2', 'images/Certificate2.jpg', 'Description about Certificate 2')">
-                        <img src="images/Certificate2.jpg" alt="Certificate 2" onerror="this.src='https://placehold.co/600x400/1e293b/fff?text=Certificate2'">
+                    <div class="certificate-card" onclick="openModal('Certificate 2', 'images/Certificate2.jpg', 'Description 2')">
+                        <img src="images/Certificate2.jpg" alt="Cert 2" onerror="this.src='https://placehold.co/600x400/1e293b/fff?text=Certificate2'">
                         <h3>Certificate 2</h3>
                         <p>Description goes here...</p>
                     </div>
 
-                    <div class="certificate-card" onclick="openModal('Certificate 3', 'images/Certificate3.jpg', 'Description about Certificate 3')">
-                        <img src="images/Certificate3.jpg" alt="Certificate 3" onerror="this.src='https://placehold.co/600x400/1e293b/fff?text=Certificate3'">
+                    <div class="certificate-card" onclick="openModal('Certificate 3', 'images/Certificate3.jpg', 'Description 3')">
+                        <img src="images/Certificate3.jpg" alt="Cert 3" onerror="this.src='https://placehold.co/600x400/1e293b/fff?text=Certificate3'">
                         <h3>Certificate 3</h3>
                         <p>Description goes here...</p>
                     </div>
-
-                <!-- 2. එක දිගට කෝච්චියක් වගේ යන්න නම්, ඉහත කාඩ්පත් 3 නැවතත් මෙහි Duplicate කළ යුතුයි -->
-                    <div class="certificate-card" onclick="openModal('Certificate 1', 'images/Certificate1.jpg', 'Description about Certificate 1')">
-                        <img src="images/Certificate1.jpg" alt="Certificate 1" onerror="this.src='https://placehold.co/600x400/1e293b/fff?text=Certificate1'">
+                
+                    <div class="certificate-card" onclick="openModal('Certificate 1', 'images/Certificate1.jpg', 'Description 1')">
+                        <img src="images/Certificate1.jpg" alt="Cert 1" onerror="this.src='https://placehold.co/600x400/1e293b/fff?text=Certificate1'">
                         <h3>Certificate 1</h3>
                         <p>Description goes here...</p>
                     </div>
 
-                    <div class="certificate-card" onclick="openModal('Certificate 2', 'images/Certificate2.jpg', 'Description about Certificate 2')">
-                        <img src="images/Certificate2.jpg" alt="Certificate 2" onerror="this.src='https://placehold.co/600x400/1e293b/fff?text=Certificate2'">
+                    <div class="certificate-card" onclick="openModal('Certificate 2', 'images/Certificate2.jpg', 'Description 2')">
+                        <img src="images/Certificate2.jpg" alt="Cert 2" onerror="this.src='https://placehold.co/600x400/1e293b/fff?text=Certificate2'">
                         <h3>Certificate 2</h3>
                         <p>Description goes here...</p>
                     </div>
 
-                    <div class="certificate-card" onclick="openModal('Certificate 3', 'images/Certificate3.jpg', 'Description about Certificate 3')">
-                        <img src="images/Certificate3.jpg" alt="Certificate 3" onerror="this.src='https://placehold.co/600x400/1e293b/fff?text=Certificate3'">
+                    <div class="certificate-card" onclick="openModal('Certificate 3', 'images/Certificate3.jpg', 'Description 3')">
+                        <img src="images/Certificate3.jpg" alt="Cert 3" onerror="this.src='https://placehold.co/600x400/1e293b/fff?text=Certificate3'">
                         <h3>Certificate 3</h3>
                         <p>Description goes here...</p>
                     </div>
@@ -653,6 +628,81 @@
             modal.classList.remove('active');
             document.body.style.overflow = 'auto'; // පසුබිම scroll වීම නැවත සක්‍රිය කිරීම
         }
+
+        // --- Certificate Slider Logic ---
+        const slider = document.getElementById('certSlider');
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+        let autoScrollTimer;
+
+        function startAutoScroll() {
+            clearInterval(autoScrollTimer); 
+            autoScrollTimer = setInterval(() => {
+                if (!isDown) {
+                    slider.scrollLeft += 1; 
+                    if (slider.scrollLeft >= (slider.scrollWidth - slider.clientWidth) - 1) {
+                        slider.scrollLeft = 0;
+                    }
+                }
+            }, 20); 
+        }
+
+        function stopAutoScroll() {
+            clearInterval(autoScrollTimer);
+        }
+
+        startAutoScroll();
+
+        // Mouse Events
+        slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            slider.style.cursor = 'grabbing';
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+            stopAutoScroll(); 
+        });
+
+        slider.addEventListener('mouseleave', () => {
+            isDown = false;
+            slider.style.cursor = 'grab';
+            startAutoScroll(); 
+        });
+
+        slider.addEventListener('mouseup', () => {
+            isDown = false;
+            slider.style.cursor = 'grab';
+            startAutoScroll(); 
+        });
+
+        slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 2; 
+            slider.scrollLeft = scrollLeft - walk;
+        });
+
+        // Touch Events (Mobile Phone)
+        slider.addEventListener('touchstart', (e) => {
+            isDown = true;
+            startX = e.touches[0].pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+            stopAutoScroll(); 
+        });
+
+        slider.addEventListener('touchend', () => {
+            isDown = false;
+            startAutoScroll(); 
+        });
+
+        slider.addEventListener('touchmove', (e) => {
+            if (!isDown) return;
+            const x = e.touches[0].pageX - slider.offsetLeft;
+            const walk = (x - startX) * 2;
+            slider.scrollLeft = scrollLeft - walk;
+        });
+
     </script>
 </body>
 </html>
