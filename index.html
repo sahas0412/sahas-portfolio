@@ -929,7 +929,7 @@
 
             try {
                 // මෙතනදී Google වෙනුවට අපි හදපු අපේ api.php ෆයිල් එකට කතා කරයි
-                const response = await fetch('api.php', {
+                const response = await fetch('/api/chat.js', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ message: userText }) 
