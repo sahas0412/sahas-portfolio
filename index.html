@@ -35,6 +35,12 @@
             color: var(--text-main);
             overflow-x: hidden;
             position: relative;
+
+            /* 🔴 block selecting letters */
+
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
 
         #waveCanvas {
@@ -263,9 +269,8 @@
 
         .certificate-grid {
             display: flex;
-            gap: 30px;
+            /* gap: 30px; අයින් කළා - Roller ගණනය කිරීම් නිවැරදි වීමට */
             width: max-content;
-            padding-right: 30px;
         }
 
         .certificate-card {
@@ -277,8 +282,10 @@
             backdrop-filter: blur(10px);
             min-width: 320px;
             white-space: normal;
+            margin-right: 30px; /* 🔴 අලුතින් එක් කළා: gap වෙනුවට පරතරය තබා ගැනීමට */
         }
 
+        /* Hover Effect ආදිය කලින් තිබූ පරිදිම තබන්න */
         .certificate-card:hover {
             transform: translateY(-10px) scale(1.02);
             border-color: var(--accent-color);
@@ -473,21 +480,21 @@
                         <p>Description goes here...</p>
                     </div>
                 
-                    <div class="certificate-card" onclick="openModal('Certificate 1', 'images/Certificate1.jpg', 'Description 1')">
-                        <img src="images/Certificate1.jpg" alt="Cert 1" onerror="this.src='https://placehold.co/600x400/1e293b/fff?text=Certificate1'">
-                        <h3>Certificate 1</h3>
+                    <div class="certificate-card" onclick="openModal('Certificate 4', 'images/Certificate4.jpg', 'Description 4')">
+                        <img src="images/Certificate4.jpg" alt="Cert 4" onerror="this.src='https://placehold.co/600x400/1e293b/fff?text=Certificate4'">
+                        <h3>Certificate 4</h3>
                         <p>Description goes here...</p>
                     </div>
 
-                    <div class="certificate-card" onclick="openModal('Certificate 2', 'images/Certificate2.jpg', 'Description 2')">
-                        <img src="images/Certificate2.jpg" alt="Cert 2" onerror="this.src='https://placehold.co/600x400/1e293b/fff?text=Certificate2'">
-                        <h3>Certificate 2</h3>
+                    <div class="certificate-card" onclick="openModal('Certificate 5', 'images/Certificate5.jpg', 'Description 5')">
+                        <img src="images/Certificate5.jpg" alt="Cert 5" onerror="this.src='https://placehold.co/600x400/1e293b/fff?text=Certificate5'">
+                        <h3>Certificate 5</h3>
                         <p>Description goes here...</p>
                     </div>
 
-                    <div class="certificate-card" onclick="openModal('Certificate 3', 'images/Certificate3.jpg', 'Description 3')">
-                        <img src="images/Certificate3.jpg" alt="Cert 3" onerror="this.src='https://placehold.co/600x400/1e293b/fff?text=Certificate3'">
-                        <h3>Certificate 3</h3>
+                    <div class="certificate-card" onclick="openModal('Certificate 6', 'images/Certificate6.jpg', 'Description 6')">
+                        <img src="images/Certificate6.jpg" alt="Cert 6" onerror="this.src='https://placehold.co/600x400/1e293b/fff?text=Certificate6'">
+                        <h3>Certificate 6</h3>
                         <p>Description goes here...</p>
                     </div>
 
@@ -631,88 +638,92 @@
             document.body.style.overflow = 'auto'; // පසුබිම scroll වීම නැවත සක්‍රිය කිරීම
         }
 
-        // --- Certificate Slider Logic (Updated for Trackpad & Mobile) ---
+                // --- 1. Prevent Right Click, Copy, and Cut (Copy Block) ---
+        document.addEventListener('contextmenu', event => event.preventDefault()); // Right Click Block
+        document.addEventListener('copy', event => event.preventDefault()); // Ctrl+C Block
+        document.addEventListener('cut', event => event.preventDefault()); // Ctrl+X Block
+
+        // --- 2. Seamless Certificate Roller & Smooth Drag ---
         const slider = document.getElementById('certSlider');
+        const grid = slider.querySelector('.certificate-grid');
+
+        // 🔴 Roller effect එක සඳහා කාඩ්පත් ටික ඉබේම දෙගුණ කිරීම
+        grid.innerHTML += grid.innerHTML;
+
         let isDown = false;
         let startX;
         let scrollLeft;
         let autoScrollTimer;
-        let wheelTimeout;
+        let scrollTimeout;
 
-        // ඉබේ Scroll වීම ආරම්භ කරන Function එක
         function startAutoScroll() {
-            clearInterval(autoScrollTimer); 
+            clearInterval(autoScrollTimer);
             autoScrollTimer = setInterval(() => {
                 if (!isDown) {
-                    slider.scrollLeft += 1; 
-                    if (slider.scrollLeft >= (slider.scrollWidth - slider.clientWidth) - 1) {
-                        slider.scrollLeft = 0;
-                    }
+                    slider.scrollLeft += 1; // වේගය
+                    checkBoundary();
                 }
-            }, 20); 
+            }, 20);
         }
 
-        // ඉබේ Scroll වීම නතර කරන Function එක
         function stopAutoScroll() {
             clearInterval(autoScrollTimer);
         }
 
-        // පිටුව load වුනු ගමන් Auto-scroll පටන් ගන්න
+        // 🔴 එකපාරට කැඩෙන්නේ නැතිව නොපෙනෙන ලෙස මුලට පැනීම (Seamless Roller)
+        function checkBoundary() {
+            const halfWidth = grid.scrollWidth / 2;
+            if (slider.scrollLeft >= halfWidth) {
+                slider.scrollLeft -= halfWidth; 
+            } else if (slider.scrollLeft <= 0) {
+                slider.scrollLeft += halfWidth;
+            }
+        }
+
         startAutoScroll();
 
-        // 1. Mouse Events (Computer Mouse Drag)
+        // --- Native Scroll Handling (Laptop Trackpad & Mobile) ---
+        // Trackpad එකෙන් Scroll කරද්දී Lag නොවී Smooth වීමට බාධා නොකිරීම
+        slider.addEventListener('scroll', () => {
+            checkBoundary(); 
+            stopAutoScroll(); // Scroll කරන වෙලාවට ඉබේ යන එක නතර වීම
+            
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                if (!isDown) startAutoScroll();
+            }, 800); // අත ගෙන තත්පර 0.8 කට පසු නැවත ඉබේ යාම ඇරඹේ
+        });
+
+        // --- Mouse Drag Events (Computer Mouse) ---
         slider.addEventListener('mousedown', (e) => {
             isDown = true;
             slider.style.cursor = 'grabbing';
             startX = e.pageX - slider.offsetLeft;
             scrollLeft = slider.scrollLeft;
-            stopAutoScroll(); 
+            stopAutoScroll();
         });
 
         slider.addEventListener('mouseleave', () => {
-            isDown = false;
-            slider.style.cursor = 'grab';
-            startAutoScroll(); 
+            if(isDown) {
+                isDown = false;
+                slider.style.cursor = 'grab';
+                startAutoScroll();
+            }
         });
 
         slider.addEventListener('mouseup', () => {
             isDown = false;
             slider.style.cursor = 'grab';
-            startAutoScroll(); 
+            startAutoScroll();
         });
 
         slider.addEventListener('mousemove', (e) => {
             if (!isDown) return;
             e.preventDefault();
             const x = e.pageX - slider.offsetLeft;
-            const walk = (x - startX) * 2; 
+            const walk = (x - startX) * 1.5; 
             slider.scrollLeft = scrollLeft - walk;
         });
-
-        // 2. Touch Events (Mobile Phone - Native Smooth Swipe)
-        // මෙහිදී දුරකථනයේ ස්වභාවික swipe වීමට බාධා නොකර Auto-scroll පමණක් නතර කරයි
-        slider.addEventListener('touchstart', () => {
-            stopAutoScroll();
-            isDown = true; 
-        }, {passive: true});
-
-        slider.addEventListener('touchend', () => {
-            isDown = false;
-            startAutoScroll(); 
-        });
-
-        // 3. Trackpad / Scroll Wheel Events (Laptop Two-Finger Scroll)
-        slider.addEventListener('wheel', () => {
-            stopAutoScroll(); // Trackpad එකෙන් Scroll කරද්දී ඉබේ යන එක නතර වීම
-            
-            // Scroll කිරීම නතර කර තත්පර 1කට පසු නැවත ඉබේ යාම ආරම්භ කිරීම
-            clearTimeout(wheelTimeout);
-            wheelTimeout = setTimeout(() => {
-                if (!isDown) {
-                    startAutoScroll();
-                }
-            }, 1000);
-        }, {passive: true});
 
     </script>
 </body>
