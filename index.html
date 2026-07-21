@@ -432,6 +432,14 @@
         .custom-chat-button:hover svg {
             transform: scale(1.1);
         }
+
+/* Completely hide any default Voiceflow launcher widget */
+        iframe[src*="voiceflow"], 
+        .vfrc-launcher, 
+        div[id*="voiceflow"] > iframe {
+            display: none !important;
+        }
+
     </style>
 </head>
 <body>
@@ -825,7 +833,7 @@
                 url: "https://runtime-api.voiceflow.com"
               },
               launch: {
-                custom: true // <--- This line hides the standard Voiceflow bubble so our custom button works!
+                custom: true 
               }
             });
           }
