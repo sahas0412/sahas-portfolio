@@ -433,13 +433,6 @@
             transform: scale(1.1);
         }
 
-/* Completely hide any default Voiceflow launcher widget */
-        iframe[src*="voiceflow"], 
-        .vfrc-launcher, 
-        div[id*="voiceflow"] > iframe {
-            display: none !important;
-        }
-
     </style>
 </head>
 <body>
@@ -822,7 +815,7 @@
     </script>
 
     <!-- Voiceflow AI Agent Integration Script (Your Exact Code + Custom Button Line) -->
-    <script type="text/javascript">
+    <script type="text/javascript" style="display: none !important">
       (function(d, t) {
           var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
           v.onload = function() {
