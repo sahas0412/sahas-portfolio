@@ -816,20 +816,22 @@
 
     <!-- Voiceflow AI Agent Integration Script -->
     <script type="text/javascript">
-      (function(d, t) {
-          var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
-          v.onload = function() {
+    (function(d, t) {
+        var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+        v.onload = function() {
             window.voiceflow.chat.load({
-              verify: { projectID: '6a5f25c32d588180db4f86ab' },
-              url: 'https://general-runtime.voiceflow.com',
-              versionID: 'production',
-              launch: {
-                custom: true 
-              }
+            verify: { projectID: '6a5f25c32d588180db4f86ab' },
+            url: 'https://general-runtime.voiceflow.com',
+            voice: {
+                url: "https://runtime-api.voiceflow.com"
+            },
+            launch: {
+                custom: true
+            }
             });
-          }
-          v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
-      })(document, 'script');
+        }
+        v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
+    })(document, 'script');
     </script>
 </body>
 </html>
