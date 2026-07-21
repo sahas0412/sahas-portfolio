@@ -17,8 +17,8 @@
         }
 
         html {
-               scroll-behavior: smooth;
-               scroll-padding-top: 100px; /* Header එකේ උස ප්‍රමාණය මග හැරීමට මෙය උපකාරී වේ */
+            scroll-behavior: smooth;
+            scroll-padding-top: 100px;
         }
 
         * {
@@ -29,15 +29,12 @@
             scroll-behavior: smooth;
         }
 
-        /* 🔴 For Cinematic Wave Background🔴 */
+        /* Cinematic Wave Background */
         body {
             background-color: #050810;
             color: var(--text-main);
             overflow-x: hidden;
             position: relative;
-
-            /* 🔴 block selecting letters */
-
             -webkit-user-select: none;
             -ms-user-select: none;
             user-select: none;
@@ -194,7 +191,7 @@
 
         .section-title span { color: var(--accent-color); }
 
-        /* 🔴 For New Scroll Animations (Coming from Different Directions) 🔴 */
+        /* Scroll Animations */
         .reveal-up {
             opacity: 0;
             transform: translateY(60px);
@@ -231,7 +228,7 @@
             padding: 20px;
             transition: all 0.4s ease;
             backdrop-filter: blur(10px);
-            cursor: pointer; /* Click */
+            cursor: pointer;
         }
 
         .portfolio-card:hover {
@@ -251,7 +248,7 @@
         .portfolio-card h3 { font-size: 22px; margin-bottom: 10px; }
         .portfolio-card p { color: var(--text-muted); font-size: 15px; }
 
-        /* --- Auto-scroll + Draggable Slider CSS --- */
+        /* Certificate Slider */
         .certificate-slider-container {
             width: 100%;
             overflow-x: auto;
@@ -260,7 +257,7 @@
             scrollbar-width: none;
             cursor: grab;
             scroll-behavior: auto;
-            -webkit-overflow-scrolling: touch; /* Mobile Phones වල Smooth Swipe වීම සඳහා */
+            -webkit-overflow-scrolling: touch;
         }
 
         .certificate-slider-container::-webkit-scrollbar {
@@ -269,7 +266,6 @@
 
         .certificate-grid {
             display: flex;
-            /* gap: 30px; අයින් කළා - Roller ගණනය කිරීම් නිවැරදි වීමට */
             width: max-content;
         }
 
@@ -280,8 +276,8 @@
             padding: 20px;
             transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
             backdrop-filter: blur(10px);
-            width: 350px; /* 🔴 කොටුවේ පළල ස්ථිර කිරීම */
-            height: 400px; /* 🔴 කොටුවේ උස ස්ථිර කිරීම */
+            width: 350px;
+            height: 400px;
             white-space: normal;
             margin-right: 30px;
             display: flex;
@@ -298,14 +294,13 @@
         .certificate-card img {
             width: 100%;
             height: 220px;
-            object-fit: contain; /* 🔴 Cover වෙනුවට Contain යෙදීමෙන් පින්තූරය නොකැපී පෙන්වයි */
+            object-fit: contain;
             border-radius: 12px;
             margin-bottom: 15px;
             pointer-events: none;
-            background-color: rgba(0, 0, 0, 0.2); /* පින්තූරය පිටුපසට අඳුරු වර්ණයක් */
+            background-color: rgba(0, 0, 0, 0.2);
         }
 
-        /* 🔴 මාතෘකාව පේළි 2කට වඩා දිග නම් ඉතිරිය නොපෙන්වා සිටීමට */
         .certificate-card h3 { 
             font-size: 20px; 
             margin-bottom: 5px;
@@ -315,7 +310,6 @@
             overflow: hidden;
         }
 
-        /* 🔴 විස්තරය පේළි 2කට සීමා කිරීමට */
         .certificate-card p { 
             color: var(--text-muted); 
             font-size: 14px; 
@@ -325,8 +319,7 @@
             overflow: hidden;
         }
 
-
-        /* 🔴 when Project Click,Pop-up window 🔴 */
+        /* Modal Overlays */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -397,109 +390,6 @@
             .modal-content { flex-direction: column; padding: 25px; }
             .modal-img, .modal-info { width: 100%; }
         }
-
-/* AI Chatbot CSS */
-        .chat-button {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: var(--gradient);
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            box-shadow: 0 10px 20px rgba(56, 189, 248, 0.4);
-            z-index: 9999;
-            transition: transform 0.3s;
-        }
-        .chat-button:hover {
-            transform: scale(1.1);
-        }
-        .chat-window {
-            position: fixed;
-            bottom: 100px;
-            right: 30px;
-            width: 350px;
-            background: #1e293b;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
-            z-index: 10000;
-            display: none; /* Initially hidden */
-            flex-direction: column;
-            overflow: hidden;
-            font-family: 'Poppins', sans-serif;
-        }
-        .chat-header {
-            background: var(--gradient);
-            padding: 15px 20px;
-            color: #fff;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 600;
-        }
-        .chat-header h3 {
-            font-size: 16px;
-            margin: 0;
-        }
-        .chat-body {
-            height: 300px;
-            padding: 15px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            background: #0f172a;
-        }
-        .message {
-            max-width: 80%;
-            padding: 10px 15px;
-            border-radius: 15px;
-            font-size: 14px;
-            line-height: 1.5;
-        }
-        .ai-message {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--text-main);
-            align-self: flex-start;
-            border-bottom-left-radius: 2px;
-        }
-        .user-message {
-            background: #38bdf8;
-            color: #fff;
-            align-self: flex-end;
-            border-bottom-right-radius: 2px;
-        }
-        .chat-footer {
-            display: flex;
-            padding: 10px;
-            background: #1e293b;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .chat-footer input {
-            flex: 1;
-            padding: 10px;
-            background: #0f172a;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            color: #fff;
-            outline: none;
-        }
-        .chat-footer button {
-            background: var(--gradient);
-            border: none;
-            color: #fff;
-            padding: 0 15px;
-            margin-left: 10px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 600;
-        }
-
     </style>
 </head>
 <body>
@@ -523,7 +413,6 @@
     </header>
 
     <section id="home" class="hero">
-        <!-- Parallax effect -->
         <div class="container hero-content" id="parallax-hero">
             <div class="hero-text reveal-left">
                 <h3>HELLO, I'M</h3>
@@ -532,7 +421,6 @@
                 <a href="#portfolio" class="btn">Explore My Work</a>
             </div>
             <div class="hero-image reveal-right">
-                <!-- 🔴 Profile Picture 🔴 -->
                 <img src="images/profile.jpg" alt="Sahas Profile" onerror="this.src='https://placehold.co/350x350/1e293b/38bdf8?text=Your+Photo'">
             </div>
         </div>
@@ -552,29 +440,23 @@
             <h2 class="section-title reveal-up">My <span>Projects</span></h2>
             
             <div class="portfolio-grid">
-                
-                <!-- Project 1 (Clickable) -->
-                <!-- onclick="openModal(...)" to Pop-up -->
                 <div class="portfolio-card reveal-up" onclick="openModal('MindHerbs Channel', 'images/mindherbs.jpg', 'MindHerbs is my YouTube channel where I curate and edit the best live music performance shorts. I focus on high-quality audio-visual experiences that captivate the audience. Over the past few months, the channel has grown significantly, bringing music lovers together.')">
                     <img src="images/mindherbs.jpg" alt="MindHerbs" onerror="this.src='https://placehold.co/600x400/1e293b/fff?text=MindHerbs'">
                     <h3>MindHerbs Channel</h3>
                     <p>Curating and editing the best live music performance shorts...</p>
                 </div>
 
-                <!-- Project 2 -->
                 <div class="portfolio-card reveal-up" style="transition-delay: 0.1s;" onclick="openModal('Engineering Design', 'images/project1.jpg', 'This was a major university project focused on problem-solving and structural design. We utilized modern engineering principles to develop an innovative solution for real-world mechanical problems, utilizing CAD software and physical prototyping.')">
                     <img src="images/project1.jpg" alt="Engineering" onerror="this.src='https://placehold.co/600x400/1e293b/fff?text=Engineering'">
                     <h3>Engineering Design</h3>
                     <p>A university project focused on problem-solving...</p>
                 </div>
 
-                <!-- Project 3 -->
                 <div class="portfolio-card reveal-up" style="transition-delay: 0.2s;" onclick="openModal('Creative Content', 'images/project2.jpg', 'I blend audio-visual elements to create engaging social media content. This includes video editing, color grading, and sound mixing to ensure each piece of content stands out and delivers a clear message to the viewers.')">
                     <img src="images/project2.jpg" alt="Content" onerror="this.src='https://placehold.co/600x400/1e293b/fff?text=Content'">
                     <h3>Creative Content</h3>
                     <p>Blending audio-visual elements to create engaging content...</p>
                 </div>
-
             </div>
         </div>
     </section>
@@ -585,7 +467,6 @@
 
             <div class="certificate-slider-container" id="certSlider">
                 <div class="certificate-grid">
-
                     <div class="certificate-card" onclick="openCertModal('Letter of Appreciation | ReXtro 2025', 'images/certificate1.jpg', 'Proud to Receive a Letter of Appreciation from the Faculty of Engineering, University of Ruhuna for My Work on the F22 Raptor Model Development at ReXtro 2025 - University of Ruhuna')">
                         <img src="images/certificate1.jpg" alt="Cert 1" onerror="this.src='https://placehold.co/600x400/1e293b/fff?text=Certificate1'">
                         <h3>Letter of Appreciation | ReXtro 2025</h3>
@@ -595,8 +476,7 @@
                     <div class="certificate-card" onclick="openCertModal('Python for Beginners', 'images/certificate2.jpeg', 'University of Moratuwa\nIssued Nov 2025\nCredential ID szd71EYSQ7')">
                         <img src="images/certificate2.jpeg" alt="Cert 2" onerror="this.src='https://placehold.co/600x400/1e293b/fff?text=Certificate2'">
                         <h3>Python for Beginners</h3>
-                        <p>University of Moratuwa
-                            <br>Credential ID szd71EYSQ7</p>
+                        <p>University of Moratuwa<br>Credential ID szd71EYSQ7</p>
                     </div>
 
                     <div class="certificate-card" onclick="openCertModal('Certificate 3', 'images/Certificate3.jpg', 'Description 3')">
@@ -622,7 +502,6 @@
                         <h3>Certificate 6</h3>
                         <p>Description goes here...</p>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -634,7 +513,7 @@
             <p style="color: var(--text-muted); margin-bottom: 30px;">Let's work together or just say hi!</p>
             <a href="mailto:lhsadesilva@gmail.com" class="btn">Send an Email</a>
             <a href="tel:0760647713" class="btn">Contact Me</a>
-            <a href="https://www.linkedin.com/in/sahasabhishek" class="btn">LinkedIn</a>
+            <a href="https://www.linkedin.com/in/sahasabhishek" class="btn" target="_blank">LinkedIn</a>
         </div>
     </section>
 
@@ -644,26 +523,24 @@
             <p>Mahakarawa Rd,</p>
             <p>Balapitiya,</p>
             <p>Sri Lanka.</p>
-            
             <p>&copy; 2026 Sahas Abhishek. Crafted with passion.</p>
-
         </div>
     </footer>
 
-    <!-- 🔴 Project Details showed Pop-up window (Modal) 🔴 -->
+    <!-- Project Modal -->
     <div class="modal-overlay" id="projectModal" onclick="closeModal(event)">
         <div class="modal-content" id="modalBox">
             <span class="close-btn" onclick="closeModalForce()">&times;</span>
             <img src="" alt="Project Image" class="modal-img" id="modalImg">
-                <div class="modal-info">
-                    <h2 id="modalTitle">Project Title</h2>
-                    <p id="modalDesc">Project description goes here...</p>
-                    <a href="https://youtube.com/@mindherbs?si=16MuivYd4BNEQkHa" id="modalLink" target="_blank" class="btn" style="text-align: center;">View Full Project</a>
-                </div>
+            <div class="modal-info">
+                <h2 id="modalTitle">Project Title</h2>
+                <p id="modalDesc">Project description goes here...</p>
+                <a href="https://youtube.com/@mindherbs?si=16MuivYd4BNEQkHa" id="modalLink" target="_blank" class="btn" style="text-align: center;">View Full Project</a>
+            </div>
         </div>
     </div>
 
-    <!-- මෙය Certificates සඳහා පමණක් භාවිතා වන අලුත් Modal එක -->
+    <!-- Certificate Modal -->
     <div class="modal-overlay" id="certModal" onclick="closeCertModal(event)">
         <div class="modal-content">
             <span class="close-btn" onclick="closeCertModalForce()">&times;</span>
@@ -692,14 +569,12 @@
         function drawWaves() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            // Gradient Background for Canvas
             let bgGradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
             bgGradient.addColorStop(0, '#050810');
             bgGradient.addColorStop(1, '#0f172a');
             ctx.fillStyle = bgGradient;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Three cinematic waves overlapping
             const waves = [
                 { color: 'rgba(56, 189, 248, 0.15)', amp: 80, freq: 0.002, speed: 0.015, offset: 0.6 },
                 { color: 'rgba(129, 140, 248, 0.1)', amp: 100, freq: 0.0015, speed: 0.02, offset: 0.65 },
@@ -728,13 +603,12 @@
             const scrolled = window.scrollY;
             const heroParallax = document.getElementById('parallax-hero');
             if(heroParallax) {
-                // Move the hero content down slightly as you scroll down
                 heroParallax.style.transform = `translateY(${scrolled * 0.3}px)`;
                 heroParallax.style.opacity = 1 - (scrolled * 0.003);
             }
         });
 
-        // --- 3. Advanced Scroll Reveal Animations ---
+        // --- 3. Scroll Reveal Animations ---
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if(entry.isIntersecting) {
@@ -743,66 +617,57 @@
             });
         }, { threshold: 0.15 });
 
-        // Observe all reveal elements
         const hiddenElements = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right');
         hiddenElements.forEach((el) => observer.observe(el));
 
-        // --- 4. Project Details Modal Logic ---
-        // Project එක Click කළ විට Pop-up වෙන Modal එකේ විස්තර යාවත්කාලීන කිරීම
+        // --- 4. Modals Logic ---
         const modal = document.getElementById('projectModal');
         const modalImg = document.getElementById('modalImg');
         const modalTitle = document.getElementById('modalTitle');
         const modalDesc = document.getElementById('modalDesc');
 
-        // Modal එක විවෘත කිරීම
         function openModal(title, imageSrc, description) {
             modalTitle.innerText = title;
             modalDesc.innerText = description;
             
-            // පින්තූරය නොමැති නම් placeholder එකක් යෙදීම
             const img = new Image();
             img.src = imageSrc;
             img.onload = () => modalImg.src = imageSrc;
             img.onerror = () => modalImg.src = 'https://placehold.co/600x400/1e293b/38bdf8?text=Project+Image';
             
             modal.classList.add('active');
-            document.body.style.overflow = 'hidden'; // පසුබිම scroll වීම නැවැත්වීම
+            document.body.style.overflow = 'hidden';
         }
 
-        // Modal එකෙන් පිටත Click කළ විට එය වැසීම
         function closeModal(event) {
             if(event.target === modal) {
                 closeModalForce();
             }
         }
 
-        // 'X' ලකුණ Click කළ විට වැසීම
         function closeModalForce() {
             modal.classList.remove('active');
-            document.body.style.overflow = 'auto'; // පසුබිම scroll වීම නැවත සක්‍රිය කිරීම
+            document.body.style.overflow = 'auto';
         }
 
-        // 🔴 Certificates සඳහා පමණක් ක්‍රියාත්මක වන Function එක
         function openCertModal(title, imageSrc, description) {
-            const modal = document.getElementById('certModal');
-            const modalImg = document.getElementById('certModalImg');
-            const modalTitle = document.getElementById('certModalTitle');
-            const modalDesc = document.getElementById('certModalDesc');
-            const modalLink = document.getElementById('certModalLink');
+            const certModal = document.getElementById('certModal');
+            const certModalImg = document.getElementById('certModalImg');
+            const certModalTitle = document.getElementById('certModalTitle');
+            const certModalDesc = document.getElementById('certModalDesc');
+            const certModalLink = document.getElementById('certModalLink');
 
-            modalTitle.innerText = title;
-            modalDesc.innerText = description;
-            modalImg.src = imageSrc;
+            certModalTitle.innerText = title;
+            certModalDesc.innerText = description;
+            certModalImg.src = imageSrc;
             
-            // View Document බොත්තම පින්තූරයම Full Screen පෙන්වයි
-            modalLink.href = imageSrc;
-            modalLink.target = "_blank";
+            certModalLink.href = imageSrc;
+            certModalLink.target = "_blank";
             
-            modal.classList.add('active');
+            certModal.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
 
-        // 🔴 Certificates Modal එක වැසීමට Function එක
         function closeCertModal(event) {
             if(event.target === document.getElementById('certModal')) {
                 closeCertModalForce();
@@ -814,16 +679,15 @@
             document.body.style.overflow = 'auto';
         }
 
-                // --- 1. Prevent Right Click, Copy, and Cut (Copy Block) ---
-        document.addEventListener('contextmenu', event => event.preventDefault()); // Right Click Block
-        document.addEventListener('copy', event => event.preventDefault()); // Ctrl+C Block
-        document.addEventListener('cut', event => event.preventDefault()); // Ctrl+X Block
+        // --- 5. Content Protection ---
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.addEventListener('copy', event => event.preventDefault());
+        document.addEventListener('cut', event => event.preventDefault());
 
-        // --- 2. Seamless Certificate Roller & Smooth Drag ---
+        // --- 6. Seamless Certificate Roller & Drag Logic ---
         const slider = document.getElementById('certSlider');
         const grid = slider.querySelector('.certificate-grid');
 
-        // 🔴 Roller effect එක සඳහා කාඩ්පත් ටික ඉබේම දෙගුණ කිරීම
         grid.innerHTML += grid.innerHTML;
 
         let isDown = false;
@@ -836,7 +700,7 @@
             clearInterval(autoScrollTimer);
             autoScrollTimer = setInterval(() => {
                 if (!isDown) {
-                    slider.scrollLeft += 1; // වේගය
+                    slider.scrollLeft += 1;
                     checkBoundary();
                 }
             }, 20);
@@ -846,7 +710,6 @@
             clearInterval(autoScrollTimer);
         }
 
-        // 🔴 එකපාරට කැඩෙන්නේ නැතිව නොපෙනෙන ලෙස මුලට පැනීම (Seamless Roller)
         function checkBoundary() {
             const halfWidth = grid.scrollWidth / 2;
             if (slider.scrollLeft >= halfWidth) {
@@ -858,19 +721,6 @@
 
         startAutoScroll();
 
-        // --- Native Scroll Handling (Laptop Trackpad & Mobile) ---
-        // Trackpad එකෙන් Scroll කරද්දී Lag නොවී Smooth වීමට බාධා නොකිරීම
-        slider.addEventListener('scroll', () => {
-            checkBoundary(); 
-            stopAutoScroll(); // Scroll කරන වෙලාවට ඉබේ යන එක නතර වීම
-            
-            clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(() => {
-                if (!isDown) startAutoScroll();
-            }, 800); // අත ගෙන තත්පර 0.8 කට පසු නැවත ඉබේ යාම ඇරඹේ
-        });
-
-        // --- Mouse Drag Events (Computer Mouse) ---
         slider.addEventListener('mousedown', (e) => {
             isDown = true;
             slider.style.cursor = 'grabbing';
@@ -880,11 +730,9 @@
         });
 
         slider.addEventListener('mouseleave', () => {
-            if(isDown) {
-                isDown = false;
-                slider.style.cursor = 'grab';
-                startAutoScroll();
-            }
+            isDown = false;
+            slider.style.cursor = 'grab';
+            startAutoScroll();
         });
 
         slider.addEventListener('mouseup', () => {
@@ -897,100 +745,40 @@
             if (!isDown) return;
             e.preventDefault();
             const x = e.pageX - slider.offsetLeft;
-            const walk = (x - startX) * 1.5; 
+            const walk = (x - startX) * 2;
             slider.scrollLeft = scrollLeft - walk;
+            checkBoundary();
         });
 
-        /* AI Chatbot JavaScript Logic - PHP හරහා ක්‍රියාත්මක වීම */
-        
-        function toggleChat() {
-            const chatWindow = document.getElementById('chatWindow');
-            if (chatWindow.style.display === 'none' || chatWindow.style.display === '') {
-                chatWindow.style.display = 'flex';
-            } else {
-                chatWindow.style.display = 'none';
-            }
-        }
+        slider.addEventListener('touchstart', () => {
+            stopAutoScroll();
+        });
 
-        function handleEnter(event) {
-            if (event.key === 'Enter') {
-                sendMessage();
-            }
-        }
+        slider.addEventListener('touchend', () => {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(startAutoScroll, 2000);
+        });
 
-        async function sendMessage() {
-            const inputField = document.getElementById('userInput');
-            const userText = inputField.value.trim();
-            if (!userText) return;
-
-            appendMessage(userText, 'user-message');
-            inputField.value = '';
-
-            const aiTypingId = appendMessage("Typing...", 'ai-message');
-
-            try {
-
-                const response = await fetch('https://sahas-portfolio-roan.vercel.app/api/chat', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ message: userText }) 
-                });
-
-                const data = await response.json();
-
-                if (data.candidates && data.candidates[0].content.parts[0].text) {
-                    const aiReply = data.candidates[0].content.parts[0].text;
-                    document.getElementById(aiTypingId).innerText = aiReply;
-                } else {
-                    document.getElementById(aiTypingId).innerText = "Error fetching response.";
-                }
-                
-                scrollToBottom();
-
-            } catch (error) {
-                document.getElementById(aiTypingId).innerText = "Sorry, I am having trouble connecting to the server.";
-            }
-        }
-
-        function appendMessage(text, className) {
-            const chatBody = document.getElementById('chatBody');
-            const msgDiv = document.createElement('div');
-            msgDiv.className = `message ${className}`;
-            msgDiv.innerText = text;
-            
-            const uniqueId = 'msg-' + Date.now();
-            msgDiv.id = uniqueId;
-            
-            chatBody.appendChild(msgDiv);
-            scrollToBottom();
-            return uniqueId;
-        }
-
-        function scrollToBottom() {
-            const chatBody = document.getElementById('chatBody');
-            chatBody.scrollTop = chatBody.scrollHeight;
-        }
-
+        slider.addEventListener('scroll', () => {
+            checkBoundary();
+        });
     </script>
 
-    <!-- AI Chatbot HTML -->
-    <div class="chat-button" onclick="toggleChat()">
-        <svg fill="#fff" viewBox="0 0 24 24" width="24" height="24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 11H7V9h2v2zm4 0h-2V9h2v2zm4 0h-2V9h2v2z"></path></svg>
-    </div>
-
-    <div class="chat-window" id="chatWindow">
-        <div class="chat-header">
-            <h3>Sahas's AI Assistant</h3>
-            <span onclick="toggleChat()" style="cursor: pointer; font-size: 20px;">&times;</span>
-        </div>
-        <div class="chat-body" id="chatBody">
-            <div class="message ai-message">Hi! I am the AI assistant for Sahas Abhishek. How can I help you today?</div>
-        </div>
-        <div class="chat-footer">
-            <input type="text" id="userInput" placeholder="Ask about Sahas in English..." onkeypress="handleEnter(event)">
-            <button onclick="sendMessage()">Send</button>
-        </div>
-    </div>
-
+    <!-- Voiceflow AI Agent Integration Script -->
+    <script type="text/javascript">
+    (function(d, t) {
+        var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+        v.onload = function() {
+            window.voiceflow.chat.load({
+            verify: { projectID: '6a5f25c32d588180db4f86ab' },
+            url: 'https://general-runtime.voiceflow.com',
+            voice: {
+                url: "https://runtime-api.voiceflow.com"
+            }
+            });
+        }
+        v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
+    })(document, 'script');
+    </script>
 </body>
 </html>
